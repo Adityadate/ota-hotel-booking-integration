@@ -1,0 +1,10 @@
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/BookingServiceApplication.java
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/client/HotelClient.java
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/domain/Booking.java
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/domain/BookingStatus.java
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/repository/BookingRepository.java
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/service/BookingService.java
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/web/BookingController.java
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/web/BookingMapper.java
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/web/BookingResponse.java
+/Users/aditya917/ota-hotel-booking-integration/booking-service/src/main/java/com/ota/booking/web/CreateBookingRequest.java

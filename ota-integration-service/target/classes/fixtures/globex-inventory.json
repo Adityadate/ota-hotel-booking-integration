@@ -1,0 +1,56 @@
+{
+  "hotels": [
+    {
+      "code": "GLX-77",
+      "hotelName": "Globex Seaside Resort",
+      "cityName": "Nice",
+      "nation": "FR",
+      "rating": 4,
+      "roomTypes": [
+        {
+          "roomCode": "OCEAN",
+          "name": "Ocean View",
+          "maxGuests": 3,
+          "inventory": 25,
+          "prices": [
+            { "night": "2026-08-01", "price": 195.00, "cur": "EUR", "roomsLeft": 11 },
+            { "night": "2026-08-02", "price": 195.00, "cur": "EUR", "roomsLeft": 11 },
+            { "night": "2026-08-03", "price": 210.00, "cur": "EUR", "roomsLeft": 9 },
+            { "night": "2026-08-04", "price": 210.00, "cur": "EUR", "roomsLeft": 8 }
+          ]
+        },
+        {
+          "roomCode": "GDN",
+          "name": "Garden Studio",
+          "maxGuests": 2,
+          "inventory": 30,
+          "prices": [
+            { "night": "2026-08-01", "price": 120.00, "cur": "EUR", "roomsLeft": 18 },
+            { "night": "2026-08-02", "price": 120.00, "cur": "EUR", "roomsLeft": 18 },
+            { "night": "2026-08-03", "price": 130.00, "cur": "EUR", "roomsLeft": 16 }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "GLX-78",
+      "hotelName": "Globex Alpine Lodge",
+      "cityName": "Chamonix",
+      "nation": "FR",
+      "rating": 4,
+      "roomTypes": [
+        {
+          "roomCode": "STD",
+          "name": "Standard",
+          "maxGuests": 2,
+          "inventory": 20,
+          "prices": [
+            { "night": "2026-08-01", "price": 175.00, "cur": "EUR", "roomsLeft": 9 },
+            { "night": "2026-08-02", "price": 175.00, "cur": "EUR", "roomsLeft": 9 },
+            { "night": "2026-08-03", "price": 185.00, "cur": "EUR", "roomsLeft": 7 }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+com/ota/booking/web/CreateBookingRequest.class
+com/ota/booking/web/BookingResponse$BookingResponseBuilder.class
+com/ota/booking/service/BookingService.class
+com/ota/booking/web/BookingController.class
+com/ota/booking/client/HotelClient.class
+com/ota/booking/domain/Booking.class
+com/ota/booking/web/BookingMapper.class
+com/ota/booking/web/BookingResponse.class
+com/ota/booking/web/CreateBookingRequest$CreateBookingRequestBuilder.class
+com/ota/booking/BookingServiceApplication.class
+com/ota/booking/repository/BookingRepository.class
+com/ota/booking/domain/BookingStatus.class

@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: booking-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:mysql}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+# Where the hotel service listens. In Docker Compose this is the service name.
+hotel:
+  service:
+    url: ${HOTEL_SERVICE_URL:http://localhost:8082}
+
+  # Conservative Feign timeouts so a slow/dead hotel service fails fast.
+  feign:
+    client:
+      config:
+        default:
+          connect-timeout: 2000
+          read-timeout: 5000
+
+server:
+  port: 8083
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:ota_bookings}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: ${DB_USERNAME:ota}
+    password: ${DB_PASSWORD:ota}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+---
+spring:
+  config:
+    activate:
+      on-profile: h2
+  datasource:
+    url: jdbc:h2:mem:bookingdb;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  flyway:
+    enabled: true

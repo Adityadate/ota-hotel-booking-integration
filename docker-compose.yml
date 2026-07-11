@@ -1,0 +1,111 @@
+services:
+  # MySQL database instance for all microservices
+  mysql:
+    image: mysql:8.0
+    container_name: ota-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ota_root_pass
+      MYSQL_DATABASE: ota_hotels
+      MYSQL_USER: ota
+      MYSQL_PASSWORD: ota
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pota_root_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ota-net
+
+  hotel-service:
+    build:
+      context: ./hotel-service
+      dockerfile: Dockerfile
+    container_name: hotel-service
+    environment:
+      SPRING_PROFILES_ACTIVE: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ota_hotels
+      DB_USERNAME: ota
+      DB_PASSWORD: ota
+    ports:
+      - "8082:8082"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - ota-net
+
+  booking-service:
+    build:
+      context: ./booking-service
+      dockerfile: Dockerfile
+    container_name: booking-service
+    environment:
+      SPRING_PROFILES_ACTIVE: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ota_bookings
+      DB_USERNAME: ota
+      DB_PASSWORD: ota
+      HOTEL_SERVICE_URL: http://hotel-service:8082
+    ports:
+      - "8083:8083"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      hotel-service:
+        condition: service_started
+    networks:
+      - ota-net
+
+  ota-integration-service:
+    build:
+      context: ./ota-integration-service
+      dockerfile: Dockerfile
+    container_name: ota-integration-service
+    environment:
+      SPRING_PROFILES_ACTIVE: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ota_integration
+      DB_USERNAME: ota
+      DB_PASSWORD: ota
+      HOTEL_SERVICE_URL: http://hotel-service:8082
+      OTA_REPLAY_ENABLED: "true"
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      hotel-service:
+        condition: service_started
+    networks:
+      - ota-net
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    depends_on:
+      - hotel-service
+      - booking-service
+      - ota-integration-service
+    networks:
+      - ota-net
+
+volumes:
+  mysql-data:
+
+networks:
+  ota-net:
+    driver: bridge
